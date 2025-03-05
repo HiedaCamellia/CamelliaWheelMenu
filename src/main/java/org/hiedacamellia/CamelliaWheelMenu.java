@@ -1,5 +1,6 @@
 package org.hiedacamellia;
 
+import net.minecraft.resources.ResourceLocation;
 import org.hiedacamellia.client.config.CWMClientConfig;
 import org.slf4j.Logger;
 
@@ -49,4 +50,7 @@ public class CamelliaWheelMenu
 
     }
 
+    public static ResourceLocation rl(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
 }

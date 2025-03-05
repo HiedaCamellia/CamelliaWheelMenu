@@ -9,6 +9,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import org.hiedacamellia.client.config.CWMClientConfig;
+import org.hiedacamellia.client.event.CWMClientGameEvent;
 import org.slf4j.Logger;
 
 
@@ -19,6 +20,8 @@ public class CamelliaWheelMenuClient
 
     public CamelliaWheelMenuClient(IEventBus modEventBus, ModContainer modContainer)
     {
+        modEventBus.addListener(CWMClientGameEvent::onClientSetup);
+
         modContainer.registerConfig(ModConfig.Type.CLIENT, CWMClientConfig.SPEC);
         modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
