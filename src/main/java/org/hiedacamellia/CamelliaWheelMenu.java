@@ -43,7 +43,7 @@ public class CamelliaWheelMenu
 
     public static final String MODID = "camellia_wheelmenu";
 
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public CamelliaWheelMenu(IEventBus modEventBus, ModContainer modContainer)
     {

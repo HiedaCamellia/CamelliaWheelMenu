@@ -5,6 +5,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.hiedacamellia.CamelliaWheelMenu;
 import org.hiedacamellia.client.gui.wheel.action.ActionData;
 import org.hiedacamellia.client.gui.wheel.action.WheelActionRegistries;
 import org.hiedacamellia.immersiveui.client.graphic.gui.IUIGuiUtils;
@@ -53,18 +54,16 @@ public class WheelTreeEntryWidget extends TreeEntryWidget<ActionData> {
     }
 
     @Override
-    public TreeEntryWidget<ActionData> getWidgetAt(double mouseX, double mouseY) {
-        for(TreeEntryWidget<ActionData> child : this.children) {
-            if (child.isHovered(mouseX, mouseY)) {
-                return child;
-            }
-        }
-        return null;
-    }
-
-    @Override
     protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float v) {
-        IUIGuiUtils.drawRing(guiGraphics,centerX,centerY,innerRadius,outerRadius,startAngle,endAngle,0x40FFFFFF);
+        IUIGuiUtils.drawRing(guiGraphics,centerX,centerY,innerRadius,outerRadius,startAngle,endAngle,0x80FFFFFF);
+        if(isHovered(mouseX,mouseY)){
+            IUIGuiUtils.drawRing(guiGraphics,centerX,centerY,innerRadius,outerRadius,startAngle,endAngle,0xD0DDDDDD);
+        }
+
+        float midAngle = (startAngle + endAngle) / 2 -90;
+        float midRadius = (innerRadius + outerRadius) / 2;
+        IUIGuiUtils.drawCenteredString(guiGraphics,font,getMessage(), (int) (centerX+(float)Math.cos(Math.toRadians(midAngle))*midRadius), (int) (centerY+(float)Math.sin(Math.toRadians(midAngle))*midRadius),0xFFFFFFFF,false);
+
 
         if(fold) return;
         renderChildren(guiGraphics, mouseX, mouseY, v);
@@ -80,9 +79,10 @@ public class WheelTreeEntryWidget extends TreeEntryWidget<ActionData> {
         int i=0;int size = children.size();
         for(TreeEntryWidget<ActionData> child : children){
             if(child instanceof WheelTreeEntryWidget widget){
-                widget.setAngle((float) (i * 360) /size, (float) ((i + 1) * 360) /size);
-                widget.setRadius(outerRadius+15-layer*5, outerRadius+50-layer*15);
+                widget.setAngle(i * 360.0f/size, (i + 1) * 360.0f/size);
+                widget.setRadius(outerRadius+5, outerRadius+30-layer*10);
                 widget.setLayer(layer+1);
+                widget.updateWidget();
             }
             i++;
         }
@@ -95,7 +95,12 @@ public class WheelTreeEntryWidget extends TreeEntryWidget<ActionData> {
         double y = mouseY - centerY;
         //转换为极坐标
         double r = Math.sqrt(x*x + y*y);
-        double angle = Math.toDegrees(Math.atan2(y, x));
+        double angle = Math.toDegrees(Math.atan2(y, x))+90;
+        if(angle<0){
+            angle += 360;
+        }else if(angle>360){
+            angle -= 360;
+        }
         return r >= innerRadius && r <= outerRadius && angle >= startAngle && angle <= endAngle;
     }
 
@@ -103,6 +108,7 @@ public class WheelTreeEntryWidget extends TreeEntryWidget<ActionData> {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hasChild()) {
+            CamelliaWheelMenu.LOGGER.info("Clicked: "+getMessage().getString());
             if (isHovered(mouseX,mouseY) && button == 0) {
                 if (this.fold) {
                     this.unfold();
@@ -118,7 +124,6 @@ public class WheelTreeEntryWidget extends TreeEntryWidget<ActionData> {
                 return v;
             }
         } else if (button == 0&&getData()!=null) {
-            WheelActionRegistries.get(getData().resourceLocation()).run(getData().compoundTag());
             return false;
         }
 

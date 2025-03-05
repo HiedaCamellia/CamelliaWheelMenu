@@ -7,6 +7,7 @@ import org.hiedacamellia.CamelliaWheelMenu;
 import org.hiedacamellia.camellialib.client.debug.DebugEntry;
 import org.hiedacamellia.camellialib.client.debug.DebugRegistries;
 import org.hiedacamellia.camellialib.client.gui.tree.DebugTreeEntryWidget;
+import org.hiedacamellia.client.gui.CreateIngameScreen;
 import org.hiedacamellia.client.gui.WheelMenuScreen;
 
 public class TestEvent {
@@ -16,8 +17,10 @@ public class TestEvent {
     public static void registerTestScreen(){
         if(ModList.get().isLoaded("camellialib")) {
             DebugTreeEntryWidget testScreen = DebugTreeEntryWidget.create(new DebugEntry(CamelliaWheelMenu.MODID, new WheelMenuScreen(Component.literal("Wheel Menu"))), Component.literal("Test Screen"), Minecraft.getInstance().font);
+            DebugTreeEntryWidget igtestScreen = DebugTreeEntryWidget.create(new DebugEntry(CamelliaWheelMenu.MODID, new CreateIngameScreen(Component.literal("Ingame Wheel Menu"))), Component.literal("Ingame Test Screen"), Minecraft.getInstance().font);
             DebugTreeEntryWidget parent = DebugTreeEntryWidget.create(null, Component.literal(CamelliaWheelMenu.MODID), Minecraft.getInstance().font);
             parent.addChild(testScreen);
+            parent.addChild(igtestScreen);
             DebugRegistries.registerRoot(parent);
         }
     }
