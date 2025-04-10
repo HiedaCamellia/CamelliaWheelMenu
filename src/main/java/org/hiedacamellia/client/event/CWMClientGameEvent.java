@@ -8,15 +8,12 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import org.hiedacamellia.CamelliaWheelMenu;
 import org.hiedacamellia.client.gui.wheel.BuiltInWheelMenuRoots;
 import org.hiedacamellia.client.gui.wheel.action.BuiltInWheelActions;
-import org.hiedacamellia.test.TestEvent;
 
 @EventBusSubscriber(modid = CamelliaWheelMenu.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class CWMClientGameEvent {
 
 
     public static void onClientSetup(final FMLClientSetupEvent event){
-        TestEvent.registerTestScreen();
-
         BuiltInWheelActions.init();
         BuiltInWheelMenuRoots.registerRoots();
     }
