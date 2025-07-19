@@ -1,13 +1,11 @@
 package org.hiedacamellia.client.gui;
 
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.hiedacamellia.CamelliaWheelMenu;
 import org.hiedacamellia.client.gui.tree.WheelTreeWidget;
 import org.hiedacamellia.client.gui.wheel.WheelMenuRootRegistries;
-import org.hiedacamellia.immersiveui.client.graphic.gui.IUIGuiUtils;
 import org.hiedacamellia.immersiveui.client.graphic.target.ScreenTempTarget;
 
 public class WheelMenuScreen extends Screen {

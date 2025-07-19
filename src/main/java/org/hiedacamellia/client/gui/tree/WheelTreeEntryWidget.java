@@ -4,11 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import org.hiedacamellia.CamelliaWheelMenu;
 import org.hiedacamellia.client.gui.wheel.action.ActionData;
-import org.hiedacamellia.client.gui.wheel.action.WheelActionRegistries;
-import org.hiedacamellia.immersiveui.client.graphic.gui.IUIGuiUtils;
+import org.hiedacamellia.immersiveui.client.graphic.util.IUIGuiUtils;
 import org.hiedacamellia.immersiveui.client.gui.component.widget.tree.TreeEntryWidget;
 
 public class WheelTreeEntryWidget extends TreeEntryWidget<ActionData> {

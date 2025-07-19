@@ -1,7 +1,6 @@
 package org.hiedacamellia.client.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.hiedacamellia.immersiveui.client.gui.component.w2s.World2ScreenScreen;
